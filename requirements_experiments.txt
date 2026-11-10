@@ -1,0 +1,9 @@
+# Versions recorded when the thesis experiments were run (thesis Section 3.12)
+scikit-learn==1.5.1
+xgboost==3.2.0
+shap==0.51.0
+imbalanced-learn==0.12.3
+pandas==2.2.2
+numpy==1.26.4
+scipy==1.13.1
+matplotlib==3.9.2
