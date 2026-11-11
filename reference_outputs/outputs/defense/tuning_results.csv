@@ -1,0 +1,5 @@
+model,best_params,CV_PR_AUC,test_AUC,test_PR_AUC,recall_at_0_5,precision_at_0_5,F1_at_0_5,best_F1_cutoff,recall_best,precision_best,F1_best
+LogisticRegression,{'C': 0.01},0.1985,0.8595,0.1965,0.4788,0.1959,0.278,0.5415,0.417,0.2097,0.2791
+RandomForest,"{'n_estimators': 200, 'min_samples_leaf': 50, 'max_features': 'sqrt', 'max_depth': 6}",0.189,0.8555,0.213,0.3822,0.2598,0.3094,0.4762,0.4286,0.2445,0.3114
+XGBoost,"{'subsample': 0.8, 'n_estimators': 400, 'min_child_weight': 5, 'max_depth': 3, 'learning_rate': 0.03, 'colsample_bytree': 0.6}",0.1836,0.8577,0.2033,0.3784,0.2627,0.3101,0.4147,0.4826,0.2148,0.2973
+MLP,"{'learning_rate_init': 0.001, 'hidden_layer_sizes': (32,), 'alpha': 1e-05, 'activation': 'relu'}",0.1896,0.854,0.2101,0.5367,0.1961,0.2872,0.5813,0.4131,0.222,0.2888

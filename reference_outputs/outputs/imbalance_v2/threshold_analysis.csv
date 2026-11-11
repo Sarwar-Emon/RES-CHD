@@ -1,0 +1,25 @@
+model,rule,threshold,TN,FP,FN,TP,recall,precision,specificity,F1
+LogisticRegression,fixed 0.5,0.5,5639.0,526.0,131.0,128.0,0.4942,0.1957,0.9147,0.2804
+LogisticRegression,best F1 (cutoff from 5-fold out-of-fold training predictions),0.5825,5822.0,343.0,163.0,96.0,0.3707,0.2187,0.9444,0.2751
+LogisticRegression,recall about 0.5 (cutoff from out-of-fold),0.4832,5605.0,560.0,122.0,137.0,0.529,0.1966,0.9092,0.2866
+LogisticRegression,recall about 0.7 (cutoff from out-of-fold),0.3283,5128.0,1037.0,77.0,182.0,0.7027,0.1493,0.8318,0.2463
+LogisticRegression,best possible precision at recall >= 0.5 (test PR curve),,,,,,0.5,0.1977,,
+LogisticRegression,best possible precision at recall >= 0.7 (test PR curve),,,,,,0.7,0.1505,,
+RandomForest,fixed 0.5,0.5,6066.0,99.0,219.0,40.0,0.1544,0.2878,0.9839,0.201
+RandomForest,best F1 (cutoff from 5-fold out-of-fold training predictions),0.2267,5452.0,713.0,108.0,151.0,0.583,0.1748,0.8843,0.2689
+RandomForest,recall about 0.5 (cutoff from out-of-fold),0.24,5507.0,658.0,115.0,144.0,0.556,0.1796,0.8933,0.2714
+RandomForest,recall about 0.7 (cutoff from out-of-fold),0.14,4955.0,1210.0,75.0,184.0,0.7104,0.132,0.8037,0.2226
+RandomForest,best possible precision at recall >= 0.5 (test PR curve),,,,,,0.5,0.1947,,
+RandomForest,best possible precision at recall >= 0.7 (test PR curve),,,,,,0.7,0.1348,,
+XGBoost,fixed 0.5,0.5,6099.0,66.0,230.0,29.0,0.112,0.3053,0.9893,0.1638
+XGBoost,best F1 (cutoff from 5-fold out-of-fold training predictions),0.2538,5621.0,544.0,130.0,129.0,0.4981,0.1917,0.9118,0.2768
+XGBoost,recall about 0.5 (cutoff from out-of-fold),0.2219,5495.0,670.0,116.0,143.0,0.5521,0.1759,0.8913,0.2668
+XGBoost,recall about 0.7 (cutoff from out-of-fold),0.1247,4946.0,1219.0,72.0,187.0,0.722,0.133,0.8023,0.2246
+XGBoost,best possible precision at recall >= 0.5 (test PR curve),,,,,,0.5,0.1915,,
+XGBoost,best possible precision at recall >= 0.7 (test PR curve),,,,,,0.7,0.1453,,
+MLP,fixed 0.5,0.5,5640.0,525.0,144.0,115.0,0.444,0.1797,0.9148,0.2558
+MLP,best F1 (cutoff from 5-fold out-of-fold training predictions),0.4446,5535.0,630.0,126.0,133.0,0.5135,0.1743,0.8978,0.2603
+MLP,recall about 0.5 (cutoff from out-of-fold),0.3404,5321.0,844.0,109.0,150.0,0.5792,0.1509,0.8631,0.2394
+MLP,recall about 0.7 (cutoff from out-of-fold),0.1348,4642.0,1523.0,74.0,185.0,0.7143,0.1083,0.753,0.1881
+MLP,best possible precision at recall >= 0.5 (test PR curve),,,,,,0.5,0.1797,,
+MLP,best possible precision at recall >= 0.7 (test PR curve),,,,,,0.7,0.1164,,

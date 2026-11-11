@@ -1,0 +1,5 @@
+model,auc_at_s1,prauc_at_s1,auc_mean_s1_s7,prauc_mean_s1_s7,esi_point,esi_bootstrapped,esi_95ci,overall_reliability,scarcity_threshold,green_levels,amber_levels,red_levels
+XGBoost,0.8485,0.211,0.8296,0.1752,0.8571,0.8598,"[0.8373, 0.888]",HIGH,"S5 (n=13,846)",5,1,1
+RandomForest,0.836,0.1862,0.8327,0.1827,0.9524,0.9517,"[0.9365, 0.9656]",HIGH,Never drops below threshold,7,0,0
+LogisticRegression,0.8593,0.1955,0.8505,0.1991,0.9365,0.9402,"[0.9334, 0.9484]",HIGH,"S7 (n=4,281)",6,0,1
+MLP,0.822,0.1771,0.8175,0.1595,0.6587,0.6576,"[0.5197, 0.762]",LOW,Never drops below threshold,2,1,4

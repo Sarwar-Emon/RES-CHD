@@ -1,178 +1,71 @@
-# RES-CHD: A Reliability-Aware Explainability Stability Framework
-### for Coronary Heart Disease Risk Prediction under Progressive Data Scarcity
+# RES-CHD: stability of SHAP explanations for CHD prediction under data scarcity
 
-> **MS Thesis — Troy University | Department of Computer Science | Spring 2026**
-> **Author:** Sayem Sarwar | **Supervisor:** Dr. Arteta
+MS thesis, Troy University, 2026. Author: Sayem Sarwar. Supervisor: Dr. Arteta.
 
----
+## What it studies
+Four models (logistic regression, random forest, XGBoost, MLP) are trained on NHANES 2005-2018 (32,118 adults, 4.03% self-reported coronary heart disease, CHD) with fewer and fewer survey cycles (levels S1 to S7; S7 uses only 2017-2018). The **Explanation Stability Index (ESI)** is the mean Spearman correlation between the SHAP feature ranking at S1 and at each later level (S2 to S7).
 
-## Overview
+## Main findings
+- The four models have similar AUC at S1 (0.82 to 0.86) but different ESI. Primary run: RF 0.952, LR 0.940, XGBoost 0.860, MLP 0.658.
+- Over repeated independent splits the MLP had the lowest ESI every time (10 splits, mean 0.72); RF and LR were similar (about 0.91).
+- ESI depends on training choices. For example, RF's ESI ranged from 0.75 to 0.99 across four imbalance methods while its AUC changed by less than 0.01.
+- Removing older cycles caused 5.3 to 6.4 times more feature drift than random subsampling of the same size, but ESI was not lower.
+- The models detect CHD poorly (best F1 about 0.31 at 4% prevalence). This is a study of explanation stability, not a clinical tool.
 
-Most machine learning papers for clinical heart disease prediction focus on **accuracy** — but accuracy alone does not tell clinicians whether the AI's *explanations* can be trusted. When a hospital has limited patient data, SHAP-based explanations can become unreliable in ways that standard metrics like AUC cannot detect.
+Limits: self-reported labels, only eight features, one survey, and a descriptive external check (UCI Cleveland: 297 patients, four models).
 
-**RES-CHD** is a reliability-aware framework that measures, quantifies, and flags explanation stability under progressive data scarcity. It answers a question no prior CHD framework has addressed:
+## Data
+- NHANES 2005-2018 public-use files from the CDC. `download_nhanes.py` downloads them, `Data_Set_Preparing.ipynb` builds the cleaned table, and `nhanes_2005_2018_unified.csv` (included; 32,118 rows) is the input of the pipeline.
+- `python dataset_funnel.py raw_nhanes` reproduces the cohort steps (70,190 participants to 32,118). `python null_report.py raw_nhanes` reports the records removed for missing values.
+- UCI Cleveland Heart Disease data (297 complete records) for the external check; `cleveland_validation.py` downloads it.
 
-> *"When training data is limited, can we still trust the AI's explanation for why it flagged this patient as high risk?"*
+## Setup
+Python 3.12. `requirements_experiments.txt` lists the package versions recorded when the experiments ran, and `requirements_figures.txt` lists the versions used to regenerate the figures. A fresh install from these files has not been tested, and some packages (for example SHAP and NumPy) have strict version limits, so results may differ in the last digit with other versions.
 
----
+## Run
+1. Main pipeline (phases 1 to 6): `python run_all.py` (several hours; Phase 3 explains the MLP with KernelExplainer).
+2. Additional experiments used in the paper and thesis: see the table below.
+3. Figures: `python make_fig_esi_trajectory.py`, `python make_fig_drift.py`, `python make_fig1_paper.py`.
 
-## Key Contributions
+## Random seeds
+All scripts use seed 42, except the repeated-split experiment (`split_robustness.py`), which uses seeds 100 to 109 (RF, MLP) and 100 to 104 (LR, XGBoost). Each scarcity level has its own stratified 80/20 split.
 
-| # | Contribution | Description |
+## Which script makes which number
+| Item | Script | Output |
 |---|---|---|
-| 1 | **Explanation Stability Index (ESI)** | Novel bootstrapped metric with 95% CI quantifying SHAP explanation consistency across data levels |
-| 2 | **Temporal Scarcity Simulation** | 7 scarcity levels using real NHANES temporal cycles — 5.3–6.4× harder than random subsampling |
-| 3 | **Three-Dimensional Reliability Framework** | Combines predictive accuracy (AUC), explanation stability (ESI), and calibration (ECE) |
-| 4 | **Local Patient-Level Stability** | Per-patient Local Stability Score (LSS) — high-risk patients receive least stable explanations |
-| 5 | **Compound Risk Framework** | Identifies patients with both uncertain predictions AND unstable explanations simultaneously |
-| 6 | **External Validation** | ESI rankings perfectly preserved on UCI Cleveland dataset (Spearman ρ=1.00, p<0.001) |
+| Cohort numbers | `dataset_funnel.py`, `null_report.py` | `dataset_funnel.csv` |
+| Scarcity levels (training and test sizes) | `phase1_preprocessing.py` | `data/scarcity_levels/`, `data/preprocessed/scarcity_summary.csv` |
+| Primary models, ESI, per-level correlations | `phase2_training.py` to `phase4_framework.py` | `results/phase5/final_consolidated_results.csv`, `results/phase5f/calibration_stability.csv` |
+| Calibration (ECE, Brier) | `phase5f_calibration.py` | `results/phase5f/calibration_metrics.csv` |
+| Distribution drift | `phase5b_distribution_shift.py` | `results/phase5b/*.csv` |
+| Ablations (thresholds, Kendall, features) | `phase5_ablation.py` | `results/phase5/ablation_*.csv` |
+| Repeated splits | `split_robustness.py` | `outputs/sr_*/` |
+| Noise floor (retraining agreement) | `noise_floor.py` | `outputs/noise_floor/` |
+| MLP variants | `mlp_sensitivity.py`, `split_robustness.py` | `outputs/mlp_sensitivity/`, `outputs/sr_mlp_*/` |
+| Exact SHAP check for the MLP | `mlp_kernelshap_check.py` | `outputs/mlp_check/` |
+| Alternative metrics, bootstrap convergence, SMOTE caps | `claims_experiments.py` (`--task core`, `--task smote`) | `outputs/claims/` |
+| Matched random subsampling | `random_vs_temporal_esi.py` | `outputs/random_vs_temporal/` |
+| Patient-level stability, compound risk | `lss_aligned.py` | `outputs/lss_aligned/` |
+| Imbalance methods, cutoffs | `imbalance_experiments.py` | `outputs/imbalance_v2/` |
+| Confusion matrices by method, tuning | `defense_experiments.py` | `outputs/defense/` |
+| ESI of tuned models, top-5 features | `defense_esi_tuned.py`, `defense_topk.py` | `outputs/defense/esi_tuned.csv`, `esi_topk.csv` |
+| 5-fold cross-validation | `cv_s1.py` | `outputs/cv/` |
+| External check (Cleveland) | `cleveland_validation.py` | `results/cleveland/`, `results/final/cleveland_esi_with_ci.csv` |
+| Figures | `make_fig_esi_trajectory.py`, `make_fig_drift.py`, `make_fig1_paper.py` | `outputs/figures/` |
 
----
-
-## Results Summary
-
-| Model | AUC@S1 | ESI (Bootstrapped) | 95% CI | Reliability | Compound Risk@S7 |
-|---|---|---|---|---|---|
-| Random Forest | 0.836 | 0.9517 | [0.937, 0.966] | ✅ HIGH | 24.9% |
-| Logistic Regression | 0.859 | 0.9402 | [0.933, 0.948] | ✅ HIGH | 18.2% |
-| XGBoost | 0.849 | 0.8598 | [0.837, 0.888] | ⚠️ HIGH* | 42.2% |
-| MLP (ANN) | 0.822 | 0.6576 | [0.520, 0.762] | ❌ LOW | 31.5% |
-
-**Key finding:** All four models have similar AUC — but ESI reveals dramatic differences in explanation reliability that AUC cannot detect. All 6 pairwise ESI differences are statistically significant (Mann-Whitney U, p<0.001).
-
----
-
-## Dataset
-
-- **Primary:** NHANES 2005–2018 — 32,118 patients, 7 biennial cycles, 4.03% CHD prevalence
-- **External Validation:** UCI Cleveland Heart Disease Dataset — 297 patients
-- **Features:** Age, Sex, Systolic BP, Diastolic BP, HDL Cholesterol, Total Cholesterol, BMI, Smoking
-
-> **Note:** NHANES data is publicly available from the CDC. Download `nhanes_2005_2018_unified.csv` and place it in the project root before running.
-
----
-
-## Pipeline Architecture
-
+Commands for the repeated splits:
 ```
-Phase 1  →  Data Preprocessing & Scarcity Simulation (7 levels S1–S7)
-Phase 2  →  Model Training (28 models: 4 architectures × 7 levels)
-Phase 3  →  SHAP Extraction & Global ESI Computation
-Phase 4  →  RES-CHD Framework (Bootstrapped ESI, Reliability Flags)
-Phase 4B →  MLP Bootstrap (SHAP-array method, B=200)
-Phase 5  →  Ablation Study (5 experiments)
-Phase 5B →  Distributional Shift Analysis (KL, Wasserstein, PSI, KS)
-Phase 5C →  ESI Baseline Comparison (vs Jaccard, MARC, RV coefficient)
-Phase 5D →  Local SHAP Stability (per-patient LSS)
-Phase 5E →  Compound Risk Framework (confidence × explanation stability)
-Phase 5F →  Calibration Analysis (Brier score, ECE, CSI)
-Phase 6  →  Publication Figures (18 figures, PNG + PDF)
-Cleveland→  External Validation on UCI Cleveland Dataset
+python split_robustness.py --seeds 5 --models XGBoost LogisticRegression --n-eval 300 --outdir outputs/sr_fast300
+python split_robustness.py --seeds 10 --models RandomForest --n-eval 300 --outdir outputs/sr_rf10
+python split_robustness.py --seeds 10 --models MLP --outdir outputs/sr_mlp10
 ```
 
----
+`phase5d_local_stability.py` and `phase5e_confidence_stability.py` are earlier versions of the patient-level analysis; the reported patient-level numbers come from `lss_aligned.py`.
 
-## Quickstart
+## Reference outputs
+`reference_outputs/` holds copies of the result files behind the reported numbers (same folder layout as the scripts write), so a number can be checked without rerunning the experiments.
 
-### Requirements
-
-```bash
-pip install pandas numpy scipy scikit-learn xgboost imbalanced-learn shap matplotlib joblib
-```
-
-Python 3.12 recommended. Pin numpy to 1.26.4 for compatibility:
-
-```bash
-pip install numpy==1.26.4
-```
-
-### Run the full pipeline
-
-```bash
-python run_all.py
-```
-
-Reproduces all results in approximately **40 minutes**. All outputs saved automatically to structured directories.
-
-### Run a specific phase
-
-```bash
-python run_all.py --phase 3        # SHAP extraction only
-python run_all.py --from-phase 5b  # start from distributional shift
-python run_all.py --check-only     # verify all outputs exist
-```
-
----
-
-## Project Structure
-
-```
-RES-CHD/
-├── phase1_preprocessing.py       # Data cleaning & scarcity splits
-├── phase2_training.py            # Model training (28 models)
-├── phase3_shap.py                # SHAP extraction & ESI computation
-├── phase4_framework.py           # RES-CHD reliability framework
-├── phase4b_mlp_bootstrap.py      # MLP bootstrapped ESI
-├── phase5_ablation.py            # Ablation study
-├── phase5b_distribution_shift.py # Distributional shift analysis
-├── phase5c_esi_baselines.py      # ESI vs alternative metrics
-├── phase5d_local_stability.py    # Per-patient local stability
-├── phase5e_confidence_stability.py # Compound risk framework
-├── phase5f_calibration.py        # Calibration analysis
-├── phase6_visualization.py       # Publication figures (Fig 1-10)
-├── phase6b_master_figures.py     # Updated figures (Fig 11-18)
-├── cleveland_validation.py       # External validation
-├── build_master_table.py         # Master results table
-├── final_improvements.py         # Statistical significance tests
-├── run_all.py                    # Master reproducibility script
-└── .gitignore
-```
-
----
-
-## Reproducibility
-
-This pipeline is fully reproducible. Fixed random seed (`42`) is used throughout all phases. Running `python run_all.py` from scratch produces identical results to those reported in the thesis.
-
-```
-✓ 14/14 phases complete
-✓ 43/43 expected outputs verified
-✓ Total runtime: ~40 minutes
-```
-
----
-
-## Novel Findings
-
-1. **Temporal data scarcity** introduces 5.3–6.4× more distributional drift than random subsampling — validating ecological realism of the simulation
-2. **ESI detects instability 5 levels earlier than Jaccard Top-3** for MLP (at S2 vs S7)
-3. **High-risk patients** (older, higher SBP) receive the least stable explanations (p<0.001)
-4. **Compound risk** grows from 10–30% at full data to 18–42% at minimum data — invisible to AUC or ESI alone
-5. **Calibration remains stable** while ESI degrades — models keep predicting correctly but stop explaining correctly
-6. **ESI rankings preserved** on UCI Cleveland (ρ=1.00, p<0.001) — framework generalizes across datasets
-
----
-
-## Citation
-
-```bibtex
-@mastersthesis{sarwar2026reschd,
-  author    = {Sayem Sarwar},
-  title     = {RES-CHD: A Reliability-Aware Explainability Stability Framework
-               for Coronary Heart Disease Risk Prediction under Progressive Data Scarcity},
-  school    = {Troy University},
-  year      = {2026},
-  type      = {M.S. Thesis},
-  address   = {Troy, Alabama}
-}
-```
-
----
-
-## License
-
-This project is part of an ongoing MS thesis. Code is available for academic and research purposes. Please cite appropriately if you use this work.
-
----
-
-*Department of Computer Science · Troy University · Troy, Alabama · 2026*
+## Notes
+- In the main run, the MLP's SHAP values use KernelExplainer with 100 sampled coalitions on 200 patients (an approximation). The repeated-split and fixed-patient experiments use 300 patients with the exact computation.
+- Hyperparameters were fixed, not tuned, in the main analysis (tuning is a separate experiment in `defense_experiments.py`).
+- The HIGH (0.85) and LOW (0.70) ESI bands are descriptive, not validated clinical limits.

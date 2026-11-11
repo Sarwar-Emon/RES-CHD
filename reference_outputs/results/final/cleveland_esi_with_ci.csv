@@ -1,0 +1,5 @@
+model,cleveland_esi,cleveland_ci_lower,cleveland_ci_upper,cleveland_ci_width,nhanes_esi,nhanes_ci_lower,nhanes_ci_upper
+XGBoost,0.7196,0.6181,0.7954,0.1773,0.8598,0.8373,0.888
+RandomForest,0.8318,0.7023,0.9273,0.225,0.9517,0.9365,0.9656
+LogisticRegression,0.7359,0.558,0.8977,0.3397,0.9402,0.9334,0.9484
+MLP,0.5519,0.05,0.8318,0.7818,0.6576,0.5197,0.762

@@ -1,0 +1,5 @@
+model,noise_floor_rho_vs_seed0,SD,min,all_pairs_mean
+XGBoost,0.9762,0.0238,0.9524,0.9698
+RandomForest,0.9381,0.0213,0.9286,0.9444
+LogisticRegression,0.981,0.0106,0.9762,0.9873
+MLP,0.9095,0.0639,0.8095,0.8603

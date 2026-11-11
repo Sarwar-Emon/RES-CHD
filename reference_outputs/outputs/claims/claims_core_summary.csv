@@ -1,0 +1,5 @@
+model,spearman,kendall,jaccard_top3,RV,MARC,spearman_top5_features
+LogisticRegression,0.9444,0.9167,1.0,0.9992,0.2083,0.9667
+MLP,0.7024,0.5595,0.9167,0.8938,1.1667,0.8833
+RandomForest,0.9365,0.869,1.0,0.9468,0.4583,0.95
+XGBoost,0.8016,0.6905,0.8333,0.9498,0.9583,0.8833

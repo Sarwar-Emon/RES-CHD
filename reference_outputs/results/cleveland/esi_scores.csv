@@ -1,0 +1,5 @@
+model,esi
+XGBoost,0.7159
+RandomForest,0.8295
+LogisticRegression,0.7227
+MLP,0.5455

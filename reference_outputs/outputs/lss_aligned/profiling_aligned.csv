@@ -1,0 +1,9 @@
+model,feature,volatile_vs_stable,p_value
+MLP,age,53.3 vs 46.8,0.1003
+MLP,sbp,134.8 vs 123.2,0.0499
+MLP,dbp,71.0 vs 70.3,0.7541
+MLP,hdl,59.7 vs 52.1,0.0969
+MLP,total_chol,210.1 vs 189.0,0.3636
+MLP,bmi,32.1 vs 28.6,0.086
+MLP,sex,10.0% vs 53.8%,0.0155
+MLP,smoking,70.0% vs 42.2%,0.1516

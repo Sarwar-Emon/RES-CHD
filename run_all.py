@@ -4,17 +4,17 @@ RES-CHD — Master Reproducibility Script
 Thesis: RES-CHD: A Reliability-Aware Explainability Stability Framework
         for Coronary Heart Disease Risk Prediction under Progressive Data Scarcity
 
-Author: [Your Name]
+Author: Sayem Sarwar
 Institution: Troy University, Department of Computer Science
 Year: 2026
 
 Purpose:
   This script runs the complete RES-CHD pipeline from scratch.
-  All results in the thesis are fully reproducible by running this script.
+  This script runs the main pipeline (phases 1-6). Several results in the paper and thesis come from additional scripts listed in the README (section 'Which script makes which number').
   Random seeds are fixed at 42 throughout all phases.
 
 Dataset required:
-  NHANES 2005-2018 unified CSV at: data/preprocessed/nhanes_base.csv
+  NHANES 2005-2018 unified CSV: nhanes_2005_2018_unified.csv in the project root (Phase 1 creates data/preprocessed/nhanes_base.csv from it)
   Cleveland Heart Disease data at: data/cleveland/processed.cleveland.data
     (auto-downloaded from UCI if not present)
 

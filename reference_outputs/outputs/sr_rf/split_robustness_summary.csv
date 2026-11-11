@@ -1,0 +1,2 @@
+model,AUC_S1_mean,AUC_S1_SD,ESI_mean,ESI_SD,ESI_min,ESI_max
+RandomForest,0.8422,0.0095,0.9074,0.0518,0.8492,0.9484

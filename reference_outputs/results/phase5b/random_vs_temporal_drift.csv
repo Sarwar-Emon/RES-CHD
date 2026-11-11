@@ -1,0 +1,7 @@
+level,n_patients,temporal_kl_mean,random_kl_mean,kl_ratio_t_over_r,temporal_wass_mean,random_wass_mean,wass_ratio_t_over_r,temporal_psi_mean,random_psi_mean,psi_ratio_t_over_r,temporal_sig_features,random_sig_features_mean,temporal_harder
+S2,28289,0.0007,0.0002,2.9025,0.1901,0.0357,5.3196,0.0008,0.0003,3.0448,0,0.0,True
+S3,23434,0.0017,0.0004,4.0565,0.3005,0.0528,5.6868,0.002,0.0005,4.0033,1,0.0,True
+S4,18276,0.0033,0.0006,5.1174,0.5036,0.079,6.372,0.0042,0.0008,5.1983,4,0.0,True
+S5,13846,0.0046,0.0009,4.972,0.6722,0.1082,6.2125,0.0062,0.0012,5.0553,4,0.0,True
+S6,9047,0.0063,0.0013,4.6686,0.9297,0.1534,6.0603,0.0092,0.0019,4.7751,7,0.0,True
+S7,4281,0.01,0.0029,3.4817,1.3823,0.2345,5.8935,0.0172,0.0043,4.0222,6,0.02,True

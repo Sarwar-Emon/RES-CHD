@@ -1,0 +1,13 @@
+comparison,metric,mean_difference,CI_95,share_of_resamples_first_is_higher
+LogisticRegression minus MLP,AUC,0.037,0.0236 to 0.0507,1.0
+LogisticRegression minus MLP,PR_AUC,0.0176,-0.0182 to 0.0481,0.868
+RandomForest minus MLP,AUC,0.0142,-0.0009 to 0.0276,0.962
+RandomForest minus MLP,PR_AUC,0.0083,-0.0245 to 0.0354,0.742
+XGBoost minus MLP,AUC,0.0264,0.0141 to 0.0372,1.0
+XGBoost minus MLP,PR_AUC,0.0334,-0.0023 to 0.0687,0.968
+LogisticRegression minus RandomForest,AUC,0.0228,0.0092 to 0.0364,1.0
+LogisticRegression minus RandomForest,PR_AUC,0.0094,-0.0213 to 0.0415,0.716
+LogisticRegression minus XGBoost,AUC,0.0106,0.0012 to 0.0205,0.982
+LogisticRegression minus XGBoost,PR_AUC,-0.0158,-0.0516 to 0.0165,0.176
+RandomForest minus XGBoost,AUC,-0.0122,-0.0235 to -0.0022,0.008
+RandomForest minus XGBoost,PR_AUC,-0.0251,-0.0536 to 0.0003,0.03

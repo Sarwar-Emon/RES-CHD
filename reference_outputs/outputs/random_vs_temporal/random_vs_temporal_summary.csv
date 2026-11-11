@@ -1,0 +1,5 @@
+model,ESI_temporal,ESI_random_mean,ESI_random_SD,difference
+XGBoost,0.8016,0.7817,0.0418,-0.0198
+RandomForest,0.9365,0.9021,0.0642,-0.0344
+LogisticRegression,0.9444,0.959,0.0115,0.0146
+MLP,0.7024,0.7156,0.0693,0.0132

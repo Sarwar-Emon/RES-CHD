@@ -1,0 +1,46 @@
+seed,model,imbalance_method,ESI
+42,LogisticRegression,no resampling,0.9048
+42,LogisticRegression,SMOTE 30% (thesis),0.9444
+42,LogisticRegression,random oversampling 30%,0.9206
+42,LogisticRegression,class weights,0.8611
+42,RandomForest,no resampling,0.8651
+42,RandomForest,SMOTE 30% (thesis),0.9365
+42,RandomForest,random oversampling 30%,0.7381
+42,RandomForest,class weights,0.9881
+42,XGBoost,no resampling,0.8016
+42,XGBoost,SMOTE 30% (thesis),0.8016
+42,XGBoost,random oversampling 30%,0.7619
+42,XGBoost,class weights,0.9167
+42,MLP,no resampling,0.6548
+42,MLP,SMOTE 30% (thesis),0.7024
+42,MLP,random oversampling 30%,0.6468
+43,LogisticRegression,no resampling,0.9048
+43,LogisticRegression,SMOTE 30% (thesis),0.9127
+43,LogisticRegression,random oversampling 30%,0.9048
+43,LogisticRegression,class weights,0.8611
+43,RandomForest,no resampling,0.7857
+43,RandomForest,SMOTE 30% (thesis),0.9405
+43,RandomForest,random oversampling 30%,0.7579
+43,RandomForest,class weights,0.9881
+43,XGBoost,no resampling,0.7381
+43,XGBoost,SMOTE 30% (thesis),0.8056
+43,XGBoost,random oversampling 30%,0.8452
+43,XGBoost,class weights,0.8889
+43,MLP,no resampling,0.0079
+43,MLP,SMOTE 30% (thesis),0.754
+43,MLP,random oversampling 30%,0.6786
+44,LogisticRegression,no resampling,0.9048
+44,LogisticRegression,SMOTE 30% (thesis),0.9405
+44,LogisticRegression,random oversampling 30%,0.9246
+44,LogisticRegression,class weights,0.8611
+44,RandomForest,no resampling,0.7897
+44,RandomForest,SMOTE 30% (thesis),0.9325
+44,RandomForest,random oversampling 30%,0.7579
+44,RandomForest,class weights,0.9881
+44,XGBoost,no resampling,0.7937
+44,XGBoost,SMOTE 30% (thesis),0.8333
+44,XGBoost,random oversampling 30%,0.7976
+44,XGBoost,class weights,0.9325
+44,MLP,no resampling,0.4643
+44,MLP,SMOTE 30% (thesis),0.6389
+44,MLP,random oversampling 30%,0.6627

@@ -1,0 +1,16 @@
+model,imbalance_method,mean,sd,n_seeds
+LogisticRegression,SMOTE 30% (thesis),0.9325,0.0173,3
+LogisticRegression,class weights,0.8611,0.0,3
+LogisticRegression,no resampling,0.9048,0.0,3
+LogisticRegression,random oversampling 30%,0.9167,0.0105,3
+MLP,SMOTE 30% (thesis),0.6984,0.0577,3
+MLP,no resampling,0.3757,0.3324,3
+MLP,random oversampling 30%,0.6627,0.0159,3
+RandomForest,SMOTE 30% (thesis),0.9365,0.004,3
+RandomForest,class weights,0.9881,0.0,3
+RandomForest,no resampling,0.8135,0.0447,3
+RandomForest,random oversampling 30%,0.7513,0.0114,3
+XGBoost,SMOTE 30% (thesis),0.8135,0.0173,3
+XGBoost,class weights,0.9127,0.0221,3
+XGBoost,no resampling,0.7778,0.0346,3
+XGBoost,random oversampling 30%,0.8016,0.0418,3
