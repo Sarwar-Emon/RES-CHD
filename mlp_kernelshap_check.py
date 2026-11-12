@@ -1,20 +1,3 @@
-"""
-Is MLP's low ESI real, or caused by how SHAP was approximated?
-Re-uses your SAVED MLP models (models/S{1..7}_MLP.pkl) and your per-level data
-(data/scarcity_levels/S{k}_train.csv / _test.csv). No re-training.
-
-phase3_shap.py explained the MLP with KernelExplainer(nsamples=100) on 200 patients. For 8 features
-the library default is ~2,064 coalition samples, so the original SHAP values are noisy. This script recomputes
-MLP ESI under four settings:
-  A  thesis setting (nsamples=100, 200 patients)           -> should reproduce ESI ~0.6576  (sanity check)
-  B  same patients, ACCURATE SHAP (nsamples='auto')         -> effect of approximation accuracy alone
-  C  accurate SHAP, more patients (--n-eval, default 500)   -> effect of sample size too
-  D  setting A with a different random draw (seed 43)       -> how much ESI moves from sampling noise alone
-Run from the Project folder (the one with data/ and models/):
-    python3 mlp_kernelshap_check.py
-    python3 mlp_kernelshap_check.py --skip C      # faster
-    python3 mlp_kernelshap_check.py --skip A B C D --draws 10   # only the multi-draw check (mean +/- SD)
-"""
 import argparse, os, warnings
 import numpy as np, pandas as pd, joblib, shap
 from scipy.stats import spearmanr
