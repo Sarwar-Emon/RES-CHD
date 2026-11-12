@@ -1,16 +1,3 @@
-"""
-Aligned per-patient analysis (LSS, patient profiling, compound risk) for RES-CHD.
-
-Fixes two problems in phase5d/phase5e:
-  1. SAME patients at every level. A fixed set of S1-test patients is explained by EVERY level's saved model
-     (their features are un-scaled with the S1 scaler and re-scaled with each level's own scaler).
-  2. Confidence = 2*|p - 0.5| (thesis Eq. 10: high when the model is sure). phase5e used 1 - 2*|p-0.5|, which is inverted.
-
-Reuses your saved models/scalers (no retraining). Run from the Project folder (the one with data/ and models/):
-    python lss_aligned.py                       # 500 patients, all 4 models
-    python lss_aligned.py --n-patients 300 --models XGBoost RandomForest LogisticRegression   # faster, skip MLP
-MLP uses EXACT KernelSHAP (nsamples='auto' = all 254 coalitions for 8 features).
-"""
 import argparse, os, warnings
 import numpy as np, pandas as pd, joblib, shap
 from scipy.stats import mannwhitneyu, chi2_contingency
