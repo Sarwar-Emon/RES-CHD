@@ -1,18 +1,4 @@
-"""
-defense_esi_tuned.py  -  NEW FILE.  Put it in the Project folder next to claims_experiments.py, imbalance_experiments.py and defense_experiments.py.
 
-Question it answers: is the MLP's low explanation stability (ESI) just because it was trained with default settings?
-It computes ESI (300 fixed patients, mean over S2-S7, 3 seeds) for:
-   tuned_smote30  - the best settings found by the tuning run (Logistic Regression, Random Forest, XGBoost, MLP), with SMOTE 30%
-   default_rus    - the thesis' default settings, with random undersampling (1:3)   (this is the method that gave the MLP an AUC of 0.851)
-   tuned_rus      - tuned settings with random undersampling
-and prints the test-set confusion matrix at cutoff 0.5 for each tuned configuration.
-
-  python defense_esi_tuned.py                                    (slow: run it overnight)
-  python defense_esi_tuned.py --models XGBoost LogisticRegression MLP     (quicker, leaves out Random Forest)
-
-Outputs go to outputs/defense/ .
-"""
 import argparse, os, sys, warnings
 import numpy as np, pandas as pd, joblib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
