@@ -1,16 +1,4 @@
-"""
-defense_experiments.py  -  extra experiments for the meeting with Dr. Chen.  NEW FILE: put it in the Project folder next to
-claims_experiments.py and imbalance_experiments.py (version 2), and run from there.
 
-  python defense_experiments.py --task matrices      (about 30-90 min)
-      -> FULL confusion matrices (TN, FP, FN, TP) for every model, BEFORE and AFTER SMOTE and for the other imbalance methods
-         (no resampling, SMOTE 30%, random oversampling, class weights, random undersampling, Borderline-SMOTE, SMOTE-Tomek, balanced random forest),
-         at the 0.5 cutoff and at the best-F1 cutoff (chosen from 5-fold out-of-fold training predictions), plus a before/after SMOTE picture.
-  python defense_experiments.py --task tune          (about 1-3 hours)
-      -> light hyperparameter search for every model (SMOTE inside the cross-validation, scored by PR-AUC), then test-set results.
-
-Outputs go to outputs/defense/ .
-"""
 import argparse, os, sys, warnings
 import numpy as np, pandas as pd
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
