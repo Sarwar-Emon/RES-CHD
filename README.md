@@ -65,7 +65,11 @@ python split_robustness.py --seeds 10 --models MLP --outdir outputs/sr_mlp10
 ## Reference outputs
 `reference_outputs/` holds copies of the result files behind the reported numbers (same folder layout as the scripts write), so a number can be checked without rerunning the experiments.
 
-## Notes
-- In the main run, the MLP's SHAP values use KernelExplainer with 100 sampled coalitions on 200 patients (an approximation). The repeated-split and fixed-patient experiments use 300 patients with the exact computation.
-- Hyperparameters were fixed, not tuned, in the main analysis (tuning is a separate experiment in `defense_experiments.py`).
-- The HIGH (0.85) and LOW (0.70) ESI bands are descriptive, not validated clinical limits.
+## Reproducibility notes
+- **Seeds.** The main pipeline uses seed 42 in every phase, including the bootstrap. The repeated-split experiment uses seeds 100 to 109 (RF, MLP) and 100 to 104 (LR, XGBoost); each scarcity level has its own stratified 80/20 split.
+- **Bootstrap intervals.** The 95% intervals of the primary ESI come from resampling the test patients' SHAP arrays: 50 resamples for RF, LR and XGBoost (`phase4_framework.py`) and 200 for the MLP (`phase4b_mlp_bootstrap.py`). They reflect test-patient sampling only, not retraining variation.
+- **Retraining changes the explanations.** `noise_floor.py` retrains each model six times on identical S1 data with different seeds (model and SMOTE). The mean pairwise agreement of the SHAP rankings was 0.987 (LR), 0.970 (XGBoost), 0.944 (RF) and 0.860 (MLP), so another seed gives values close to, but not identical with, the reported ones.
+- **KernelExplainer.** The MLP's SHAP values use KernelExplainer: 100 sampled coalitions on 200 patients in the main run, and the exact computation on 300 patients in the repeated and fixed-patient experiments. `mlp_kernelshap_check.py` measures the effect: with exact values on 500 patients the MLP's ESI varied from 0.643 to 0.754 across ten patient draws (mean 0.701, SD 0.035).
+- **Hyperparameters** were fixed, not tuned, in the main analysis (tuning is a separate experiment in `defense_experiments.py`).
+- **ESI bands.** The HIGH (0.85) and LOW (0.70) ESI bands are descriptive, not validated clinical limits.
+- **What was tested.** From a clean download of this repository, `make_fig1_paper.py`, `make_fig_esi_trajectory.py` and `make_fig_drift.py` (run with `--base reference_outputs`) and `phase1_preprocessing.py` reproduced the paper's tables and figures. The full pipeline (phases 2 to 6) and a fresh package install from the requirements files were not tested.
