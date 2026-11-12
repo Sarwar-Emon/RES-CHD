@@ -1,16 +1,4 @@
-"""
-Experiments that produce the numbers the thesis still needs. Run from the Project folder.
 
-  python claims_experiments.py --task core  --models XGBoost LogisticRegression RandomForest MLP
-      -> per-model, per-level ESI under four metrics (Spearman, Kendall, Jaccard top-3, RV coefficient, mean absolute rank change),
-         the feature-subset ESI (three lowest-importance features removed), and a bootstrap-convergence table (B = 50..500).
-  python claims_experiments.py --task smote --models XGBoost LogisticRegression RandomForest MLP
-      -> ESI and S1 performance (AUC, recall, precision, F1) without SMOTE and with SMOTE caps of 20%, 30% and 40%.
-
-Same data, models and settings as the pipeline (data/scarcity_levels/S{k}_train.csv / _test.csv, seed 42). The same 300 fixed S1 test patients are explained
-by every level's model (as in the per-patient analysis); tree and linear models are exact, the MLP uses exact KernelSHAP.
-Outputs go to outputs/claims/ . RandomForest is slow (TreeExplainer); start without it (--models XGBoost LogisticRegression MLP) if you want a quick look.
-"""
 import argparse, os, warnings
 import numpy as np, pandas as pd, joblib, shap
 from scipy.stats import spearmanr, kendalltau, rankdata
