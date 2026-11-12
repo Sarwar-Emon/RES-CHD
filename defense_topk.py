@@ -1,19 +1,3 @@
-"""
-defense_topk.py  -  NEW FILE.  Put it in the Project folder next to claims_experiments.py, imbalance_experiments.py, defense_experiments.py and defense_esi_tuned.py.
-
-Question it answers: is the difference in explanation stability (ESI) only about the ORDER OF THE LEAST IMPORTANT FEATURES, or also about the important ones?
-For every model and configuration (default + SMOTE, tuned + SMOTE) it computes, over S2-S7 on the 300 fixed patients (3 seeds):
-   ESI_all8       - the usual ESI (all 8 features)
-   ESI_top5       - ESI using only the 5 features that are most important at S1
-   top3_same_set  - share of levels where the 3 most important features are the same three as at S1
-   top1_same      - share of levels where the most important feature is the same as at S1
-and it prints the S1 feature order of each model.
-
-  python defense_topk.py                                   (slow: run it overnight)
-  python defense_topk.py --models XGBoost LogisticRegression MLP --seeds 42      (quicker look)
-
-Outputs go to outputs/defense/ .
-"""
 import argparse, os, sys, warnings
 import numpy as np, pandas as pd, joblib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
