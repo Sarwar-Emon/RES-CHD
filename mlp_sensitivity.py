@@ -1,21 +1,3 @@
-"""
-MLP sensitivity study for RES-CHD: activation function, depth, seed noise, SHAP-approximation noise.
-
-QUICK mode (minutes): AUC, ECE, confusion matrix at S1 for every MLP configuration, 3 seeds.
-    python3 mlp_sensitivity.py nhanes_2005_2018_unified.csv --mode quick
-
-FULL mode (roughly 15-40 min per configuration; use --configs to pick some): also ESI (S1 vs S2..S7) with 95% bootstrap CI for every configuration, plus two
-"noise floor" checks:  (a) explainer noise  = same model explained twice with different random draws,
-                       (b) training-seed noise = model retrained with another seed.
-    python3 mlp_sensitivity.py nhanes_2005_2018_unified.csv --mode full
-    (use --configs 0 1 6 to run only some configurations, --n-explain 200 to go faster;
-     SHAP uses nsamples='auto' = all 254 coalitions = exact KernelSHAP for 8 features. Use --nsamples 100 to mimic the thesis.)
-
-Design (leakage-free): the S1 test set is fixed. Level S_k trains on the S1-TRAIN patients whose cycle is
-within the last (8-k) cycles. SHAP is always computed for the same patients from the fixed test set.
-NOTE: the thesis built a separate 80/20 split per level, so the baseline here can differ slightly from
-the thesis ESI (0.6576). Compare configurations to the baseline row of THIS script, not to the thesis.
-"""
 import argparse, os, warnings
 import numpy as np, pandas as pd
 from scipy.stats import spearmanr
