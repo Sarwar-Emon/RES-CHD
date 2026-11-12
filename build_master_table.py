@@ -1,13 +1,3 @@
-"""
-RES-CHD — Master Consolidated Results Table
-============================================
-Builds a single comprehensive CSV joining all results from all phases.
-Useful for writing the results section and for supplementary materials.
-
-Outputs:
-  results/master_results_table.csv   — all metrics per model per level
-  results/master_summary_table.csv   — one row per model (aggregated)
-"""
 
 import warnings
 import numpy as np
