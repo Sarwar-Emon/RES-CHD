@@ -1,27 +1,3 @@
-"""
-RES-CHD — Three Final Improvements for Q2 Submission
-=====================================================
-Improvement 1: Statistical significance tests between model ESI distributions
-               (Mann-Whitney U on bootstrap distributions — turns descriptive into inferential)
-
-Improvement 2: Bootstrapped CIs for Cleveland ESI
-               (closes asymmetry with NHANES comparison table)
-
-Improvement 3: Enhanced Fig 1 with more prominent CI bands
-               (most important visual in the paper — reviewers see this first)
-
-Run:
-    python final_improvements.py
-
-Outputs:
-    results/final/esi_significance_tests.csv
-    results/final/cleveland_esi_with_ci.csv
-    results/final/complete_comparison_table.csv
-    results/phase6b/figures/fig18_updated_esi_all_models.png  (enhanced)
-    results/phase6/figures/fig1_esi_stability_curves.png      (enhanced CI bands)
-    logs/final_improvements.txt
-"""
-
 import logging
 import warnings
 import numpy as np
