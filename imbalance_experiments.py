@@ -1,13 +1,3 @@
-"""
-Version 2.  Answers the committee's questions about class imbalance.  Put this file in the Project folder (next to claims_experiments.py) and run from there.
-
-  python imbalance_experiments.py --task threshold
-  python imbalance_experiments.py --task methods
-  python imbalance_experiments.py --task esi_methods --seeds 42 43 44
-
-Final models are trained on the FULL S1 training data (like the thesis). Cutoffs come from 5-fold out-of-fold predictions on the training data; the test set is never used to pick a cutoff.
-Outputs go to outputs/imbalance_v2/ .
-"""
 import argparse, os, sys, warnings
 import numpy as np, pandas as pd, joblib
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
